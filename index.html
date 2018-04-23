@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <div class="box">
+        <img class="origin" src="./image/map.png" alt="">
+        <div id="grid" class="grid"></div>
+    </div>
+
+    <script type="text/javascript">
+        var oGrad = document.getElementById('grid');
+        function createSquare(ij, clickHandle) {
+            var oSquare = document.createElement('div');
+            oSquare.className = 'square';
+            oSquare.setAttribute('ij', ij);
+            oSquare.addEventListener('click', clickHandle);
+            oGrad.appendChild(oSquare);
+        }
+
+        // createSquare();
+        function clickHandle (e) {
+            console.log(e.target.getAttribute('ij'));
+            e.target.style.backgroundColor = 'red';
+        }
+        for(var i = 0; i<100; i++) {
+            for(var j=0; j<100; j++) {
+                createSquare(i+"-"+j, clickHandle);
+            }
+        }
+
+        // grid mousemove事件
+        oGrad.addEventListener('mousedown', mousedownHandle);
+        oGrad.addEventListener('mouseup', mouseupHandle);
+        function mousedownHandle(e) {
+            console.log('mousedown', e);
+            oGrad.addEventListener('mousemove', mousemoveHandle);
+
+        }
+        function mousemoveHandle(e) {
+            console.log('mousemove', e);
+            e.target.style.backgroundColor = 'red';
+        }
+        function mouseupHandle(e) {
+            console.log('mouseup', e);
+            oGrad.removeEventListener('mousemove', mousemoveHandle);
+        }
+
+    </script>
+
+</body>
+</html>
